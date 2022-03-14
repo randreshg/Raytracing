@@ -1,3 +1,5 @@
+#pragma once
+
 /*---------------------------------CLASS DEFINITION--------------------------------*/
 class Properties {
     public:
@@ -9,9 +11,8 @@ class Properties {
     float t;                //Transmittance (fraction of the transmitting ray)
     float iof;              //Index of refraction
 
-	/*--------------------------------CONSTRUCTORS---------------------------------*/
-    Properties(){}
-    Properties(const Properties &prop){ *this = prop;}
-    Properties(Color objectColor, float kd, float ks, float shine, float t, float iof)
-        : objectColor(objectColor), kd(kd), ks(ks), shine(shine), t(t), iof(iof) {}
+    /*--------------------------------CONSTRUCTORS---------------------------------*/
+    Properties();
+    Properties(const Properties &prop);
+    Properties(Color objectColor, float kd, float ks, float shine, float t, float iof);
 };

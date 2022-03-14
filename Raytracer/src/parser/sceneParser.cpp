@@ -1,3 +1,4 @@
+#include "sceneParser.h"
 
 /*----------------------------------FUNCTIONS----------------------------------*/
 void readBackground(Scene *scene) {
@@ -57,8 +58,7 @@ void readSphere(Scene *scene, Properties p) {
     scene->addPrimitive(new Sphere(point,r,p));
 }
 
-/*Fill color and shading parameters.  Description:
-"f" red green blue Kd Ks Shine T index_of_refraction*/
+
 Properties readProperties() {
     Color color;
     float kd,ks,shine,t,iof;
@@ -108,7 +108,7 @@ void readScreen(Screen *s) {
     s->height = atof(strtok(NULL, " "));
 }
 
-int readFile(char *name,RayTracer *RT) {
+int readFile(char *name, RayTracer *RT) {
     try {
         FILE *fp = fopen(name, "r");
         if (fp == NULL)
