@@ -9,16 +9,16 @@ class Ray
     Vector P;          //P = o + d(distance)
 
     /*----------------------------------FUNCTIONS----------------------------------*/
-    //Print info
-    void print(){ cout<<"["; origin.print(); cout<<" "; direction.print(); cout<<"]"<<endl;}
-    void setP(){ P = origin + direction*(distance);}
+    void setP(){ }
     /*--------------------------------CONSTRUCTORS---------------------------------*/
     Ray(){ distance = SKY;}
-    Ray(const Ray &ray){ *this = ray;}
-    Ray(Vector o, Vector d, float distance)
-            { this->origin = o; this->direction = d; this->distance = distance; setP();}
-    Ray(Vector o, Vector d)
-            {  distance = SKY; this->origin = o; Vector v(d,o);
-               v.normalize(); this->direction = v; 
-            }
+    Ray(const Ray &ray){ *this = ray; }
+    Ray(Vector o, Vector d, float distance) : origin(o), direction(d), distance(distance) { 
+        P = origin + direction*(distance);
+    }
+    Ray(Vector o, Vector d) : origin(o) {
+        distance = SKY; 
+        Vector v(d,o); v.normalize();
+        this->direction = v; 
+    }
 };

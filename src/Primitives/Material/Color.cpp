@@ -5,8 +5,6 @@ class Color {
     float R, G, B;
 
     /*----------------------------------FUNCTIONS----------------------------------*/
-    //Print info
-    void print(){ cout<<"["<<R<<" "<<G<<" "<<B<<"]";}
     //Add
     Color operator+ (const Color &c) const
             { return Color((R + c.R),(G + c.G),(B + c.B));}

@@ -48,7 +48,6 @@
     #include "RayTracing/Scene.cpp"
     #include "RayTracing/RayTracer.cpp"
     //Parser
-    #include "Parser/argumentParser.cpp"
     #include "Parser/sceneParser.cpp"
 
 #endif

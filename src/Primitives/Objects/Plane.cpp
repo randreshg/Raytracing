@@ -7,7 +7,7 @@ class Plane: public Primitive {
 
     /*----------------------------------FUNCTIONS----------------------------------*/
     //Find intersection between a ray and Plane
-    void rayIntersection(Ray *ray,Primitive **object) {
+    void rayIntersection(Ray *ray, Primitive **object) {
         Vector voc = (ray->origin) - (c);
         float dv = (ray->direction).dotPoint(v);
         float vocv = voc.dotPoint(v); 
@@ -19,18 +19,15 @@ class Plane: public Primitive {
                 *object = this;
                 ray->setP();
             }
-            
-        }            
+        }
     }
 
     //Get normal given an intersection point
-    Vector getNormal(Vector P){return v;}
+    Vector getNormal(Vector P){ return v; }
 
     /*--------------------------------CONSTRUCTORS---------------------------------*/
     Plane(){};
-    Plane(Vector c,Vector v, Properties properties) : c(c), v(v), p
-        {this->c = c; this->v = v;this->properties= properties;}
-    Plane(Vector c,Vector v)
-        {this->c = c; this->v = v;}
-    Plane(const Plane &cln) {*this = cln;}
+    Plane(Vector c,Vector v, Properties p) : c(c), v(v), properties(p) {}
+    Plane(Vector c,Vector v) : c(c), v(v) {}
+    Plane(const Plane &cln) { *this = cln; }
 };

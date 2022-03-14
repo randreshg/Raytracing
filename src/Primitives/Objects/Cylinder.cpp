@@ -6,20 +6,20 @@ class Cylinder: public Primitive {
     Vector cb;          //Botton cap
     float r;            //Radio
     Vector v;           //Axys direction
-    float maxm;         // Cilynder 
+    float maxm;         //Cilynder 
     float m;            //Closest point to intersection point over axys direction
 
     /*----------------------------------FUNCTIONS----------------------------------*/
     //Find intersection between a ray and Cilynder
     void rayIntersection(Ray *ray, Primitive **object) {
-        float a,b,c,RV;
+        float a, b, c, RV;
         RV = (ray->direction).dotPoint(v);
         Vector Vocb = (ray->origin) - cb;
         float VocbDotv = Vocb.dotPoint(v);
         a = 1 - RV*RV;
         b = 2*((ray->direction).dotPoint(Vocb) - RV*VocbDotv);
-        c = Vocb.dotPoint(Vocb) - VocbDotv*VocbDotv- r*r;
-        quadraticSolution(a,b,c,&(ray->distance));
+        c = Vocb.dotPoint(Vocb) - VocbDotv*VocbDotv - r*r;
+        quadraticSolution(a, b, c, &(ray->distance));
 
         if(ray->distance != SKY) {
             m = ((ray->direction)*(ray->distance)).dotPoint(v) + VocbDotv;
@@ -29,25 +29,25 @@ class Cylinder: public Primitive {
             }
             else
                 ray->distance = SKY;
-            
         }
     }
-            
+
     //Get normal given an intersection point
     Vector getNormal(Vector P) {
-        Vector cp = cb+ v*m;
-        Vector N(P,cp); N.normalize();
+        Vector cp = cb + v*m;
+        Vector N(P, cp);
+        N.normalize();
         return N;
     }
 
 	/*--------------------------------CONSTRUCTORS---------------------------------*/
     Cylinder(){};
     Cylinder(Vector ct,Vector cb, float r, Properties p) : 
-             ct(ct), cb(cb), r(r), p(p) {
+             ct(ct), cb(cb), r(r), properties(p) {
         Vector v = (ct-cb); 
         this.maxm = v.lenght();
         v.normalize(); 
         this->v = v; this.m = 0;
-    } 
+    }
     Cylinder(const Cylinder &cln) {*this = cln;}
 };

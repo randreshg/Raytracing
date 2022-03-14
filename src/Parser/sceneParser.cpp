@@ -109,8 +109,7 @@ void readScreen(Screen *s) {
 }
 
 int readFile(char *name,RayTracer *RT) {
-    try
-    {
+    try {
         FILE *fp = fopen(name, "r");
         if (fp == NULL)
             throw 0;
