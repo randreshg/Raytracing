@@ -1,3 +1,11 @@
+#pragma once
+
+/*-----------------------------------LIBRARIES-------------------------------------*/
+#include "Scene.h"
+#include "Screen.h"
+#include "Observer.h"
+#include "Screen.h"
+
 /*---------------------------------CLASS DEFINITION--------------------------------*/
 class RayTracer {
     public:
@@ -16,7 +24,7 @@ class RayTracer {
     void ScreenItrInfo();
 
     /*--------------------------------CONSTRUCTORS---------------------------------*/
-    RayTracer();;
+    RayTracer();
     RayTracer(const RayTracer &s);
     RayTracer(Scene scene, Observer observer, Screen screen);
 };

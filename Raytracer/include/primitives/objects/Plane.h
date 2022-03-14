@@ -1,5 +1,11 @@
 #pragma once
 
+/*-----------------------------------LIBRARIES------------------------------------*/
+#include "Properties.h"
+#include "Primitive.h"
+#include "Vector.h"
+#include "Ray.h"
+
 /*---------------------------------CLASS DEFINITION--------------------------------*/
 class Plane: public Primitive {
     public:
@@ -11,7 +17,7 @@ class Plane: public Primitive {
     //Find intersection between a ray and Plane
     void rayIntersection(Ray *ray, Primitive **object);
     //Get normal given an intersection point
-    Vector getNormal(Vector P){ return v; }
+    Vector getNormal(Vector P);
 
     /*--------------------------------CONSTRUCTORS---------------------------------*/
     Plane();

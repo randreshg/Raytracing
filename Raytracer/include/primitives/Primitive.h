@@ -1,3 +1,9 @@
+#pragma once
+
+/*-----------------------------------LIBRARIES------------------------------------*/
+#include "Vector.h"
+#include "Ray.h"
+
 /*---------------------------------CLASS DEFINITION--------------------------------*/
 class Primitive {
     public:

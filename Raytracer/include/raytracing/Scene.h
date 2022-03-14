@@ -1,3 +1,10 @@
+#pragma once
+
+/*-----------------------------------LIBRARIES------------------------------------*/
+#include "Primitive.h"
+#include "Vector.h"
+#include "Light.h"
+
 /*---------------------------------CLASS DEFINITION--------------------------------*/
 class Scene {
     public:
@@ -5,7 +12,7 @@ class Scene {
     Color background;
     Array<Primitive*> primitives;
     Array<Light> lights;
-	
+
     /*----------------------------------FUNCTIONS----------------------------------*/
     void addPrimitive(Primitive *p);
     void addLight(Light l);

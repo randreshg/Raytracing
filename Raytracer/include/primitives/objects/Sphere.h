@@ -1,3 +1,11 @@
+#pragma once
+
+/*-----------------------------------LIBRARIES------------------------------------*/
+#include "Properties.h"
+#include "Primitive.h"
+#include "Vector.h"
+#include "Ray.h"
+
 /*---------------------------------CLASS DEFINITION--------------------------------*/
 class Sphere: public Primitive {
     public:

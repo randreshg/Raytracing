@@ -1,3 +1,5 @@
+#pragma once
+
 /*---------------------------------CLASS DEFINITION--------------------------------*/
 class Screen {
     public:

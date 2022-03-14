@@ -6,3 +6,5 @@ include_directories(include
                     include/primitives/objects
                     include/raytracing
                     include)
+
+#add_subdirectory( src )

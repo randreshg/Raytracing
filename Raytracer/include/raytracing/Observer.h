@@ -1,3 +1,8 @@
+#pragma once
+
+/*-----------------------------------LIBRARIES-------------------------------------*/
+#include "Vector.h"
+
 /*---------------------------------CLASS DEFINITION--------------------------------*/
 class Observer {
     public:
@@ -11,5 +16,4 @@ class Observer {
     Observer();
     Observer(const Observer &obs);
     Observer(Vector from, Vector lookAt, Vector up, float angle);
-
 };

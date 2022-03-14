@@ -1,3 +1,9 @@
+#pragma once
+
+/*-----------------------------------LIBRARIES------------------------------------*/
+#include "Color.h"
+#include "Vector.h"
+
 /*---------------------------------CLASS DEFINITION--------------------------------*/
 class Light {
     public:

@@ -1,5 +1,9 @@
 #pragma once
 
+/*-----------------------------------LIBRARIES---------------------------------*/
+#include "Scene.h"
+#include "Properties.h"
+
 /*----------------------------------FUNCTIONS----------------------------------*/
 void readBackground(Scene *scene);
 void readLight(Scene *scene);
