@@ -8,7 +8,7 @@ class RayTracer {
     ScreenItr sItr;
 
     /*----------------------------------FUNCTIONS----------------------------------*/
-    int trace() {
+    int RayTracer::trace() {
         Primitive *object;
         int xResolution = screen.width;
         int yResolution = screen.height;
@@ -35,7 +35,7 @@ class RayTracer {
         return 0;
     } 
 
-    void intersectionTest(Ray *primaryRay, Primitive **object) {
+    void RayTracer::intersectionTest(Ray *primaryRay, Primitive **object) {
         Primitive *obj;
         Ray ray = *primaryRay;
         for(unsigned int i=0; i<scene.primitives.size(); i++) {
@@ -47,7 +47,7 @@ class RayTracer {
         }
     } 
     
-    Color shading(Ray ray, Primitive *object, int option, int depth) {
+    Color RayTracer::shading(Ray ray, Primitive *object, int option, int depth) {
         Color b = scene.background;
         if(ray.distance == SKY)
             return b;
@@ -55,7 +55,7 @@ class RayTracer {
             return colorContribution(object,ray,option,depth);
     }
 
-    Color colorContribution(Primitive *object, Ray ray, int option, int depth) {
+    Color RayTracer::colorContribution(Primitive *object, Ray ray, int option, int depth) {
         //Auxiliar variables
         Color color;
         Vector P = ray.P;
@@ -66,7 +66,7 @@ class RayTracer {
         return color;
     }
     
-    Color fullScale(Vector P,Vector N,Vector V, Primitive *object, int depth) {
+    Color RayTracer::fullScale(Vector P,Vector N,Vector V, Primitive *object, int depth) {
         //Primitive properties
         Color objectColor = (object->properties).objectColor;
         float shine = (object->properties).shine;
@@ -116,8 +116,7 @@ class RayTracer {
         return color;
     }
 
-
-    void ScreenItrInfo() {
+    void RayTracer::ScreenItrInfo() {
         Vector w(observer.lookAt, observer.from); w.normalize();
         Vector u = w.cross(observer.up); u.normalize();
         Vector v = u.cross(w);

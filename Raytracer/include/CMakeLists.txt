@@ -1,8 +1,0 @@
-#CMAKE
-include_directories(include
-                    include/parser
-                    include/primitives
-                    include/primitives/material
-                    include/primitives/objects
-                    include/raytracing
-                    include)

@@ -1,5 +1,5 @@
 #include <iostream>
-//#include "Raytracer.h"
+#include "Raytracer.h"
 
 // #ifdef USE_MYMATH
 //     #include "MathFunctions.h"

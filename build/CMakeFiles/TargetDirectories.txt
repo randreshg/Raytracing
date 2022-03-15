@@ -1,5 +1,0 @@
-/home/randreshg/Documents/Raytracing/build/CMakeFiles/rt.dir
-/home/randreshg/Documents/Raytracing/build/CMakeFiles/edit_cache.dir
-/home/randreshg/Documents/Raytracing/build/CMakeFiles/rebuild_cache.dir
-/home/randreshg/Documents/Raytracing/build/Raytracer/CMakeFiles/edit_cache.dir
-/home/randreshg/Documents/Raytracing/build/Raytracer/CMakeFiles/rebuild_cache.dir
