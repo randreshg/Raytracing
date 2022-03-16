@@ -149,7 +149,7 @@ int readFile(char *name, RayTracer *RT) {
         RT->ScreenItrInfo(); //Set Screen iterator info
         return 1;
     } catch(int i) {
-        cout<<"There was an error reading the scene file. Be sure the file exists"<<endl;
+        std::cout<<"There was an error reading the scene file. Be sure the file exists"<<std::endl;
         return 0;
     }
 }

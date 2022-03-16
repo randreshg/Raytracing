@@ -1,13 +1,13 @@
 #include "Color.h"
 
 /*----------------------------------FUNCTIONS----------------------------------*/
-Color::Color operator+ (const Color &c)
+Color Color::operator+ (const Color &c) const
         { return Color((R + c.R), (G + c.G), (B + c.B));}
 
-Color::Color operator- (const Color &c)
+Color Color::operator- (const Color &c) const
         { return Color((R - c.R), (G - c.G), (B - c.B));}
 
-Color::Color operator* (const float &v)
+Color Color::operator* (const float &v) const
         { return Color((R * v),(G * v),(B * v));}
 
 /*--------------------------------CONSTRUCTORS---------------------------------*/

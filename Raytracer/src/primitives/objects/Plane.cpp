@@ -16,10 +16,10 @@ void Plane::rayIntersection(Ray *ray, Primitive **object) {
     }
 }
 
-Vector getNormal(Vector P) { return v; }
+Vector Plane::getNormal(Vector P) { return v; }
 
 /*--------------------------------CONSTRUCTORS---------------------------------*/
 Plane::Plane() {};
-Plane::Plane(Vector c,Vector v, Properties p) : c(c), v(v), properties(p) {}
+Plane::Plane(Vector c,Vector v, Properties p) : c(c), v(v) { this->properties = p;}
 Plane::Plane(Vector c,Vector v) : c(c), v(v) {}
 Plane::Plane(const Plane &cln) { *this = cln; }

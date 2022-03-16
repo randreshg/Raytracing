@@ -1,6 +1,5 @@
-#include <iostream>
-#include "Raytracer.h"
 
+#include <iostream>
 // #ifdef USE_MYMATH
 //     #include "MathFunctions.h"
 // #endif
@@ -8,7 +7,7 @@
 int parseArguments(int, char **);
 
 int main(int argc, char *argv[]) {
-    // RayTracer RT;
+    RayTracer RT;
     // string folder("Scenes/");
     // string extension(".nff");
     // string name = folder + argv[1] + extension;

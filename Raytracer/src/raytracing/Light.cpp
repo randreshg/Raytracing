@@ -1,12 +1,6 @@
-/*---------------------------------CLASS DEFINITION--------------------------------*/
-class Light {
-    public:
-    /*----------------------------------ATTRIBUTES---------------------------------*/
-    Color color;
-    Vector position;
+#include "Light.h"
 
-    /*--------------------------------CONSTRUCTORS---------------------------------*/
-    Light(){};
-    Light(const Light &light) { *this = light;}
-    Light(Color c, Vector p) : color(c), position(p) {}
-};
+/*--------------------------------CONSTRUCTORS---------------------------------*/
+Light::Light() {};
+Light::Light(const Light &light) { *this = light;}
+Light::Light(Color c, Vector p) : color(c), position(p) {}

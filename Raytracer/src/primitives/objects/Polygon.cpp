@@ -47,5 +47,5 @@ Vector Polygon::getNormal(Vector P) { return N; }
 /*--------------------------------CONSTRUCTORS---------------------------------*/
 Polygon::Polygon(){};
 Polygon::Polygon(int nVertices, Vector *vert, Properties p) : 
-                    nVertices(nVertices), vertices(vert), properties(p) {}
+                 nVertices(nVertices), vertices(vert) { this->properties = p;}
 Polygon::Polygon(const Polygon &cln) { *this = cln; }

@@ -22,5 +22,5 @@ Vector Sphere::getNormal(Vector P) {
 
 /*--------------------------------CONSTRUCTORS---------------------------------*/
 Sphere::Sphere() {};
-Sphere::Sphere(Vector c, float r, Properties p): center(c), r(r), properties(p) {}
+Sphere::Sphere(Vector c, float r, Properties p): center(c), r(r) { this->properties = p;}
 Sphere::Sphere(const Sphere &sph) { *this = sph; }

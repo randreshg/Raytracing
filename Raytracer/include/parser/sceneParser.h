@@ -1,8 +1,24 @@
 #pragma once
 
 /*-----------------------------------LIBRARIES---------------------------------*/
+#include <iostream>
+#include <fstream>
+#include <stdio.h>
+#include <string.h>
+
 #include "Scene.h"
+#include "Screen.h"
+#include "Observer.h"
 #include "Properties.h"
+#include "Raytracer.h"
+
+#include "Cylinder.h"
+#include "Plane.h"
+#include "Polygon.h"
+#include "Sphere.h"
+
+/*-----------------------------------CONSTANTS--------------------------------*/
+#define MAXCHAR 100
 
 /*----------------------------------FUNCTIONS----------------------------------*/
 void readBackground(Scene *scene);

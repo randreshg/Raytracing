@@ -4,6 +4,7 @@
 #include "Properties.h"
 #include "Primitive.h"
 #include "Vector.h"
+#include "Plane.h"
 #include "Ray.h"
 
 /*---------------------------------CLASS DEFINITION--------------------------------*/

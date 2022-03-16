@@ -4,6 +4,8 @@
 #include "Primitive.h"
 #include "Vector.h"
 #include "Light.h"
+#include <vector>
+#define Array std::vector
 
 /*---------------------------------CLASS DEFINITION--------------------------------*/
 class Scene {

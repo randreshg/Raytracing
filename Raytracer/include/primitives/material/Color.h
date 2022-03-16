@@ -8,11 +8,11 @@ class Color {
 
     /*----------------------------------FUNCTIONS----------------------------------*/
     //Add
-    Color operator+ (const Color &c);
+    Color operator+ (const Color &c) const;
     //Substract
-    Color operator- (const Color &c);
+    Color operator- (const Color &c) const;
     //Scale
-    Color operator* (const float &v);
+    Color operator* (const float &v) const;
 
     /*--------------------------------CONSTRUCTORS---------------------------------*/
     Color();

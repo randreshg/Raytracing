@@ -30,12 +30,13 @@ Vector Cylinder::getNormal(Vector P) {
 }
 
 /*--------------------------------CONSTRUCTORS---------------------------------*/
-Cylinder::Cylinder(){};
+Cylinder::Cylinder() {};
 Cylinder::Cylinder(Vector ct,Vector cb, float r, Properties p) : 
-                    ct(ct), cb(cb), r(r), properties(p) {
+                    ct(ct), cb(cb), r(r){    
     Vector v = (ct - cb); 
-    this.maxm = v.lenght();
-    v.normalize(); 
-    this->v = v; this.m = 0;
+    this->maxm = v.lenght();
+    v.normalize(); this->v = v;
+    this->m = 0;
+    this->properties = p;
 }
 Cylinder::Cylinder(const Cylinder &cln) {*this = cln;}
