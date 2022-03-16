@@ -31,7 +31,7 @@ add_executable(rt main.cpp)
 
 # Specify that this library depends upon rtl
 message_green("=> Linking libraries")
-target_link_libraries(rt rtl)
+target_link_libraries(rt rtl m)
 # add the binary tree to the search path for include files
 # target_include_directories(rt PUBLIC
 #                           raytracer

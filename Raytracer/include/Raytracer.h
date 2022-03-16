@@ -19,7 +19,7 @@ class RayTracer {
     ScreenItr sItr;
 
     /*----------------------------------FUNCTIONS----------------------------------*/
-    int trace();
+    void trace();
     void intersectionTest(Ray *primaryRay, Primitive **object);
     Color shading(Ray ray, Primitive *object, int depth);
     Color colorContribution(Primitive *object, Ray ray, int depth);

@@ -1,31 +1,35 @@
 #include "Raytracer.h"
 
 /*----------------------------------FUNCTIONS----------------------------------*/
-int RayTracer::trace() {
+void RayTracer::trace() {
     Primitive *object;
-    int xResolution = screen.width;
-    int yResolution = screen.height;
+    int xResolution = screen.width, 
+        yResolution = screen.height;
     Vector xPixel, yPixel;
     //PPM file
-    FILE * fp = fopen ("Output/Pictures/file.ppm", "w+");
-    fprintf (fp, "P3\n%d %d\n255\n", xResolution, yResolution);  
-    //Calculate the time taken by the program
-    clock_t t = clock();
-    for(int i=0; i<yResolution; i++) {
-        yPixel = sItr.pixelHeight*i;
-        for(int j=0; j<xResolution; j++) {
-            xPixel = sItr.pixelWidth*j;
-            Ray primaryRay(observer.from, (sItr.scanLine - yPixel) + xPixel); 
-            intersectionTest(&primaryRay, &object);
-            Color pixelColor = shading(primaryRay, object, 0);
-            pixelColor = pixelColor*(255);
-            fprintf (fp, "%d %d %d ",(int)pixelColor.R ,(int)pixelColor.G,(int)pixelColor.B);
+    FILE *fp = fopen("Output/file.ppm", "w+");
+    if (fp!=NULL) {
+        fprintf(fp, "P3\n%d %d\n255\n", xResolution, yResolution);  
+        //Calculate the time taken by the program
+        clock_t t = clock();
+        for(int i=0; i<yResolution; i++) {
+            yPixel = sItr.pixelHeight*i;
+            for(int j=0; j<xResolution; j++) {
+                xPixel = sItr.pixelWidth*j;
+                Ray primaryRay(observer.from, (sItr.scanLine - yPixel) + xPixel); 
+                intersectionTest(&primaryRay, &object);
+                Color pixelColor = shading(primaryRay, object, 0);
+                pixelColor = pixelColor*(255);
+                fprintf(fp, "%d %d %d ",(int)pixelColor.R ,(int)pixelColor.G,(int)pixelColor.B);
+            }
         }
+        t = clock() - t;
+        double timeTaken = ((double)t)/CLOCKS_PER_SEC;
+        printf("The process took %f seconds to execute \n", timeTaken);
     }
-    t = clock() - t;
-    double timeTaken = ((double)t)/CLOCKS_PER_SEC;
-    printf("The process took %f seconds to execute \n", timeTaken);
-    return 0;
+    else {
+        printf("'Output' folder doesn't exist\n");
+    }
 } 
 
 void RayTracer::intersectionTest(Ray *primaryRay, Primitive **object) {
