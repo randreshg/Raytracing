@@ -1,155 +1,170 @@
 #include "sceneParser.h"
-
+#define NEXT inputFile>>tok
 /*----------------------------------FUNCTIONS----------------------------------*/
-void readBackground(Scene *scene) {
+int readFile(std::string filename, RayTracer *RT) {
+    // Open file
+    std::ifstream inputFile(filename);
+    if (!inputFile.is_open()) {
+        std::cerr<< "Could not open the file - '"
+                 << filename << "'" << std::endl;
+        return EXIT_FAILURE;
+    }
+    //Aux variables
+    Scene scene; Screen screen; Observer observer; Properties p;
+    std::string tok;
+    // Iterate file
+    while (inputFile >> tok) {
+        if(tok.compare("b") == 0)
+            readBackground(inputFile, &scene);
+        // else if(tok.compare("resolution") == 0)
+        //     readScreen(inputFile, &screen);
+        // else if(tok.compare("l") == 0)
+        //     readLight(inputFile, &scene);
+        // // else if(tok.compare("s") == 0)
+        // //     readSphere(&scene, p);
+        // // else if(tok.compare("c") == 0)
+        // //     readCylinder(&scene, p);
+        // // else if(tok.compare("p") == 0)
+        // //     readPolygon(&scene, p, str, fp);
+        // // else if(tok.compare("f") == 0)
+        // //     p = readProperties();
+        else if(tok.compare("v") == 0)
+            readObserver(inputFile, &observer);
+        std::cout << "Token: " << tok << std::endl;
+    }
+    
+    // std::string line;
+    // while (getline(inputFile, line)){
+
+    //     // Tokenizing w.r.t. space ' '
+    //     while(getline(check1, intermediate, ' '))
+    //     {
+    //         tokens.push_back(intermediate);
+    //     }
+    // }
+    // Close file
+    inputFile.close();
+    return EXIT_SUCCESS;
+    // try {
+    //     FILE *fp = fopen(name, "r");
+    //     if (fp == NULL)
+    //         throw 0;
+        
+    //     //Save data in RayTracer object
+    //     RT->observer = observer;
+    //     RT->screen = screen;
+    //     RT->scene = scene;
+    //     RT->ScreenItrInfo(); //Set Screen iterator info
+    //     std::cout<<"FILE READ"<<std::endl;
+
+}
+
+void readBackground(std::ifstream &inputFile, Scene *scene) {
+    std::string tok;
     Color color;
-    color.R = atof(strtok(NULL, " "));
-    color.G = atof(strtok(NULL, " "));
-    color.B = atof(strtok(NULL, " "));
+    NEXT, color.R = std::stof(tok);
+    NEXT, color.G = std::stof(tok);
+    NEXT, color.B = std::stof(tok);
     scene->background = color;
 }
 
-void readLight(Scene *scene) {
-    Vector point; 
-    point.x = atof(strtok(NULL, " "));
-    point.y = atof(strtok(NULL, " "));
-    point.z = atof(strtok(NULL, " "));
+void readLight(std::ifstream &inputFile, Scene *scene) {
+    std::string tok;
+    Vector point;
+    NEXT, point.x = std::stof(tok);
+    NEXT, point.y = std::stof(tok);
+    NEXT, point.z = std::stof(tok);
     Color color;
-    color.R = atof(strtok(NULL, " "));
-    color.G = atof(strtok(NULL, " "));
-    color.B = atof(strtok(NULL, " "));
-    Light l(color,point);
+    color.R = std::stof(tok);
+    color.G = std::stof(tok);
+    color.B = std::stof(tok);
+    
+    color.R = 0.5, color.G = 0.5, color.B = 0.5;
+    Light l(color, point);
     scene->addLight(l);
 }
 
-void readCylinder(Scene *scene, Properties p) {
-    Vector ct,cb; float r;
-    ct.x = atof(strtok(NULL, " "));
-    ct.y = atof(strtok(NULL, " "));
-    ct.z = atof(strtok(NULL, " "));
-    r    = atof(strtok(NULL, " "));
-    cb.x = atof(strtok(NULL, " "));
-    cb.y = atof(strtok(NULL, " "));
-    cb.z = atof(strtok(NULL, " "));
-    r    = atof(strtok(NULL, " "));
-    scene->addPrimitive(new Cylinder(ct,cb,r,p));
-}
+// void readCylinder(Scene *scene, Properties p) {
+//     Vector ct,cb; float r;
+//     ct.x = std::stof(tok);
+//     ct.y = std::stof(tok);
+//     ct.z = std::stof(tok);
+//     r    = std::stof(tok);
+//     cb.x = std::stof(tok);
+//     cb.y = std::stof(tok);
+//     cb.z = std::stof(tok);
+//     r    = std::stof(tok);
+//     scene->addPrimitive(new Cylinder(ct, cb, r, p));
+// }
 
-void readPolygon(Scene *scene, Properties p, char *str, FILE *fp) {
-    int nVertices = atof(strtok(NULL, " "));
-    Vector *vertices = new Vector[nVertices];
+// void readPolygon(Scene *scene, Properties p, char *str, FILE *fp) {
+//     int nVertices = std::stof(tok);
+//     Vector *vertices = new Vector[nVertices];
     
-    for(int i=0; i<nVertices; i++) {
-        fgets(str, MAXCHAR, fp);
-        vertices[i].x   = atof(strtok(str, " "));
-        vertices[i].y   = atof(strtok(NULL, " "));
-        vertices[i].z   = atof(strtok(NULL, " "));
-    }
-    scene->addPrimitive(new Polygon(nVertices,vertices,p));
-}
+//     for(int i=0; i<nVertices; i++) {
+//         fgets(str, MAXCHAR, fp);
+//         vertices[i].x   = std::stof()(strtok(str, " "));
+//         vertices[i].y   = std::stof(tok);
+//         vertices[i].z   = std::stof(tok);
+//     }
+//     scene->addPrimitive(new Polygon(nVertices,vertices,p));
+// }
 
-void readSphere(Scene *scene, Properties p) {
-    Vector point; 
-    float r;
-    point.x = atof(strtok(NULL, " "));
-    point.y = atof(strtok(NULL, " "));
-    point.z = atof(strtok(NULL, " "));
-    r       = atof(strtok(NULL, " "));
-    scene->addPrimitive(new Sphere(point,r,p));
-}
+// void readSphere(Scene *scene, Properties p) {
+//     Vector point; 
+//     float r;
+//     point.x = std::stof(tok);
+//     point.y = std::stof(tok);
+//     point.z = std::stof(tok);
+//     r       = std::stof(tok);
+//     scene->addPrimitive(new Sphere(point,r,p));
+// }
 
 
-Properties readProperties() {
-    Color color;
-    float kd,ks,shine,t,iof;
-    color.R = atof(strtok(NULL, " "));
-    color.G = atof(strtok(NULL, " "));
-    color.B = atof(strtok(NULL, " "));
-    kd      = atof(strtok(NULL, " "));
-    ks      = atof(strtok(NULL, " "));
-    shine   = atof(strtok(NULL, " "));
-    t       = atof(strtok(NULL, " "));
-    iof     = atof(strtok(NULL, " "));
-    Properties p(color,kd,ks,shine,t,iof);
-    return p;
-}
+// Properties readProperties() {
+//     Color color;
+//     float kd, ks, shine, t, iof;
+//     color.R = std::stof(tok);
+//     color.G = std::stof(tok);
+//     color.B = std::stof(tok);
+//     kd      = std::stof(tok);
+//     ks      = std::stof(tok);
+//     shine   = std::stof(tok);
+//     t       = std::stof(tok);
+//     iof     = std::stof(tok);
+//     Properties p(color, kd, ks, shine, t, iof);
+//     return p;
+// }
 
-void readObserver(Observer *observer, char *str, FILE *fp) {
+void readObserver(std::ifstream &inputFile, Observer *observer) {
+    std::string tok;
     //Read from
-    Vector from;
-    fgets(str, MAXCHAR, fp); strtok(str, " ");
-    from.x   = atof(strtok(NULL, " "));
-    from.y   = atof(strtok(NULL, " "));
-    from.z   = atof(strtok(NULL, " "));
+    Vector from; NEXT;
+    NEXT, from.x = std::stof(tok);
+    NEXT, from.y = std::stof(tok);
+    NEXT, from.z = std::stof(tok);
     observer->from = from;
     //Read at
-    Vector lookAt;
-    fgets(str, MAXCHAR, fp); strtok(str, " ");
-    lookAt.x = atof(strtok(NULL, " "));
-    lookAt.y = atof(strtok(NULL, " "));
-    lookAt.z = atof(strtok(NULL, " "));
+    Vector lookAt; NEXT;
+    NEXT, lookAt.x = std::stof(tok);
+    NEXT, lookAt.y = std::stof(tok);
+    NEXT, lookAt.z = std::stof(tok);
     observer->lookAt = lookAt;
+    std::cout << "Token at: " << tok << std::endl;
     //Read up
-    Vector up;
-    fgets(str, MAXCHAR, fp); strtok(str, " ");
-    up.x    = atof(strtok(NULL, " "));
-    up.y    = atof(strtok(NULL, " "));
-    up.z    = atof(strtok(NULL, " "));
+    Vector up; NEXT;
+    NEXT, up.x = std::stof(tok);
+    NEXT, up.y = std::stof(tok);
+    NEXT, up.z = std::stof(tok);
     observer->up = up;
     //Read angle
-    float angle;
-    fgets(str, MAXCHAR, fp); strtok(str, " ");
-    angle   = atof(strtok(NULL, " "));
+    float angle; NEXT;
+    NEXT, angle = std::stof(tok);
     observer->angle = angle;
 }
 
-void readScreen(Screen *s) {
-    s->width  = atof(strtok(NULL, " "));
-    s->height = atof(strtok(NULL, " "));
-}
-
-int readFile(char *name, RayTracer *RT) {
-    try {
-        FILE *fp = fopen(name, "r");
-        if (fp == NULL)
-            throw 0;
-        
-        Scene scene; Screen screen; Observer observer;
-        Properties p;
-        //Char array to save the data read
-        char str[MAXCHAR];
-        //Go through file
-        while (fgets(str, MAXCHAR, fp) != NULL) {
-            char *ptr = strtok(str, " ");
-            while(ptr != NULL) {
-                if(strcmp(ptr, "b") == 0)
-                    readBackground(&scene);
-                else if(strcmp(ptr, "resolution") == 0)
-                    readScreen(&screen);
-                else if(strcmp(ptr, "l") == 0)
-                    readLight(&scene);
-                else if(strcmp(ptr, "s") == 0)
-                    readSphere(&scene,p);
-                else if(strcmp(ptr, "c") == 0)
-                    readCylinder(&scene,p);
-                else if(strcmp(ptr, "p") == 0)
-                    readPolygon(&scene,p,str,fp);
-                else if(strcmp(ptr, "f") == 0)
-                    p = readProperties();
-                else if(strcmp(ptr, "v") >= 1)
-                    readObserver(&observer,str,fp);
-                ptr = strtok(NULL, " ");
-            }
-        }
-        fclose(fp);
-        //Save data in RayTracer object
-        RT->observer = observer;
-        RT->screen = screen;
-        RT->scene = scene;
-        RT->ScreenItrInfo(); //Set Screen iterator info
-        return 1;
-    } catch(int i) {
-        std::cout<<"There was an error reading the scene file. Be sure the file exists"<<std::endl;
-        return 0;
-    }
+void readScreen(std::ifstream &inputFile, Screen *s) {
+    std::string tok;
+    NEXT, s->width  = std::stof(tok);
+    NEXT, s->height = std::stof(tok);
 }

@@ -26,6 +26,7 @@ void RayTracer::trace() {
         t = clock() - t;
         double timeTaken = ((double)t)/CLOCKS_PER_SEC;
         printf("The process took %f seconds to execute \n", timeTaken);
+        fclose (fp);
     }
     else {
         printf("'Output' folder doesn't exist\n");

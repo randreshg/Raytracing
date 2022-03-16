@@ -5,7 +5,6 @@
 #include <fstream>
 #include <stdio.h>
 #include <string>
-#include <string.h>
 
 #include "Scene.h"
 #include "Screen.h"
@@ -22,12 +21,12 @@
 #define MAXCHAR 100
 
 /*----------------------------------FUNCTIONS----------------------------------*/
-void readBackground(Scene *scene);
-void readLight(Scene *scene);
+int readFile(std::string filename, RayTracer *RT);
+void readBackground(std::ifstream &inputFile, Scene *scene);
+void readLight(std::ifstream &inputFile, Scene *scene);
 void readCylinder(Scene *scene, Properties p);
 void readPolygon(Scene *scene, Properties p, char *str, FILE *fp);
 void readSphere(Scene *scene, Properties p);
 Properties readProperties();
-void readObserver(Observer *observer, char *str, FILE *fp);
-void readScreen(Screen *s);
-int readFile(char *name, RayTracer *RT);
+void readObserver(std::ifstream &inputFile, Observer *observer);
+void readScreen(std::ifstream &inputFile, Screen *s);
