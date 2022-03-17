@@ -3,8 +3,10 @@
 /*-----------------------------------LIBRARIES---------------------------------*/
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <stdio.h>
 #include <string>
+#include <vector>
 
 #include "Scene.h"
 #include "Screen.h"
@@ -24,9 +26,9 @@
 int readFile(std::string filename, RayTracer *RT);
 void readBackground(std::ifstream &inputFile, Scene *scene);
 void readLight(std::ifstream &inputFile, Scene *scene);
-void readCylinder(Scene *scene, Properties p);
-void readPolygon(Scene *scene, Properties p, char *str, FILE *fp);
-void readSphere(Scene *scene, Properties p);
-Properties readProperties();
+void readCylinder(std::ifstream &inputFile, Scene *scene, Properties p);
+void readPolygon(std::ifstream &inputFile, Scene *scene, Properties p);
+void readSphere(std::ifstream &inputFile, Scene *scene, Properties p);
 void readObserver(std::ifstream &inputFile, Observer *observer);
-void readScreen(std::ifstream &inputFile, Screen *s);
+void readScreen (std::ifstream &inputFile, Screen *s);
+Properties readProperties(std::ifstream &inputFile);

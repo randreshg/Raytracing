@@ -20,6 +20,10 @@ Vector Sphere::getNormal(Vector P) {
     return N;
 }
 
+void Sphere::print() { 
+    std::cout<<"Sphere ["; center.print(); 
+    std::cout<<", "<<r<<"]"<<std::endl;}
+
 /*--------------------------------CONSTRUCTORS---------------------------------*/
 Sphere::Sphere() {};
 Sphere::Sphere(Vector c, float r, Properties p): center(c), r(r) { this->properties = p;}

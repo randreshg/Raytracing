@@ -44,6 +44,10 @@ void Polygon::rayIntersection(Ray *ray, Primitive **object) {
 
 Vector Polygon::getNormal(Vector P) { return N; }
 
+void Polygon::print() { 
+    std::cout<<"Polygon n["<<nVertices<<"]"<<std::endl;
+}
+
 /*--------------------------------CONSTRUCTORS---------------------------------*/
 Polygon::Polygon(){};
 Polygon::Polygon(int nVertices, Vector *vert, Properties p) : 

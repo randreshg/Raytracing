@@ -2,6 +2,7 @@
 
 /*-----------------------------------LIBRARIES-------------------------------------*/
 #include <math.h>
+#include <iostream>
 
 /*---------------------------------CLASS DEFINITION--------------------------------*/
 class Vector {
@@ -10,6 +11,8 @@ class Vector {
     float x,y,z;
 
     /*----------------------------------FUNCTIONS----------------------------------*/
+    //Print info
+    void print(){ std::cout<<"["<<x<<","<<y<<","<<z<<"]";}
 
     //Vector lenght
     float lenght(){ return sqrt(x*x + y*y + z*z); }

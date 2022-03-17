@@ -18,6 +18,7 @@ class Cylinder: public Primitive {
     float m;            //Closest point to intersection point over axys direction
 
     /*----------------------------------FUNCTIONS----------------------------------*/
+    void print();
     //Find intersection between a ray and Cilynder
     void rayIntersection(Ray *ray, Primitive **object);
     //Get normal given an intersection point

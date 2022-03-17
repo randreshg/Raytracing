@@ -18,7 +18,7 @@ class Scene {
     /*----------------------------------FUNCTIONS----------------------------------*/
     void addPrimitive(Primitive *p);
     void addLight(Light l);
-
+    void print();
     /*--------------------------------CONSTRUCTORS---------------------------------*/
     Scene();
     Scene(Color bg, Array<Primitive*> primitives, Array<Light> lights);

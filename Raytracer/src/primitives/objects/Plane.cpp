@@ -18,6 +18,12 @@ void Plane::rayIntersection(Ray *ray, Primitive **object) {
 
 Vector Plane::getNormal(Vector P) { return v; }
 
+void Plane::print(){ 
+    std::cout<<"Plane ct["; c.print();
+    std::cout<<"], v["; v.print();
+    std::cout<<"]"<<std::endl;
+}
+
 /*--------------------------------CONSTRUCTORS---------------------------------*/
 Plane::Plane() {};
 Plane::Plane(Vector c,Vector v, Properties p) : c(c), v(v) { this->properties = p;}

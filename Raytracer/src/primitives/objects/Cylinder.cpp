@@ -29,6 +29,12 @@ Vector Cylinder::getNormal(Vector P) {
     return N;
 }
 
+void Cylinder::print() { 
+    std::cout<<"Cylinder ct["; ct.print();
+    std::cout<<"], cb["; cb.print();
+    std::cout<<"], r "<<r<<std::endl;
+}
+
 /*--------------------------------CONSTRUCTORS---------------------------------*/
 Cylinder::Cylinder() {};
 Cylinder::Cylinder(Vector ct,Vector cb, float r, Properties p) : 

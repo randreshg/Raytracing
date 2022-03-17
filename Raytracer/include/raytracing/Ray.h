@@ -7,13 +7,14 @@
 #define PI 3.14159265
 #define MAXCHAR 100
 #define SKY 100000
+
 /*---------------------------------CLASS DEFINITION--------------------------------*/
 class Ray {
     public:
     /*----------------------------------ATTRIBUTES---------------------------------*/
-    Vector origin;     
-    Vector direction;  
-    float distance;    
+    Vector origin;
+    Vector direction;
+    float distance;
     Vector P;          //P = o + d(distance)
 
     /*----------------------------------FUNCTIONS----------------------------------*/

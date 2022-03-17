@@ -5,6 +5,7 @@
 #include "Vector.h"
 #include "Ray.h"
 #include "math.h"
+#include <iostream>
 
 /*---------------------------------MACRO FUNTION---------------------------------*/
 #define quadraticSolution(a,b,c,d){                 \
@@ -22,11 +23,12 @@ class Primitive {
     public:
     Properties properties;
     /*----------------------------------FUNCTIONS----------------------------------*/
+    virtual void print()=0;
     //Find intersection between a ray and primitive
     virtual void rayIntersection(Ray *ray, Primitive **object)=0;
     //Get normal given an intersection point
     virtual Vector getNormal(Vector P)=0;
     /*--------------------------------CONSTRUCTORS---------------------------------*/
-    Primitive(){};
-    ~Primitive(){};
+    Primitive() {};
+    ~Primitive() {};
 };

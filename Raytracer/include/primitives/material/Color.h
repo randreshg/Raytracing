@@ -1,5 +1,8 @@
 #pragma once
 
+/*-----------------------------------LIBRARIES------------------------------------*/
+#include <iostream>
+
 /*---------------------------------CLASS DEFINITION--------------------------------*/
 class Color {
     public:
@@ -7,6 +10,7 @@ class Color {
     float R, G, B;
 
     /*----------------------------------FUNCTIONS----------------------------------*/
+    void print();
     //Add
     Color operator+ (const Color &c) const;
     //Substract

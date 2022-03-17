@@ -14,6 +14,7 @@ class Plane: public Primitive {
     Vector v;           //Normal plane
 
     /*----------------------------------FUNCTIONS----------------------------------*/
+    void print();
     //Find intersection between a ray and Plane
     void rayIntersection(Ray *ray, Primitive **object);
     //Get normal given an intersection point

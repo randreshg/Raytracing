@@ -16,6 +16,7 @@ class Polygon: public Primitive {
     Vector N;                         //Normal
 
     /*----------------------------------FUNCTIONS----------------------------------*/
+    void print();
     //Find intersection between a ray and Polygon
     void rayIntersection(Ray *ray, Primitive **object);
     //Return Normal of Polygon

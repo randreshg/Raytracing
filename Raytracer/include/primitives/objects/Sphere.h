@@ -14,6 +14,7 @@ class Sphere: public Primitive {
     float r;            //Ratio
 
     /*----------------------------------FUNCTIONS----------------------------------*/
+    void print();
     //Find intersection betweern a ray and sphere
     void rayIntersection(Ray *ray, Primitive **object);
     //Get normal given an intersection point

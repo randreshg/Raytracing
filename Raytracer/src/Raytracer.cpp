@@ -3,8 +3,8 @@
 /*----------------------------------FUNCTIONS----------------------------------*/
 void RayTracer::trace() {
     Primitive *object;
-    int xResolution = screen.width, 
-        yResolution = screen.height;
+    int xResolution = 10, 
+        yResolution = 1;
     Vector xPixel, yPixel;
     //PPM file
     FILE *fp = fopen("Output/file.ppm", "w+");
@@ -15,11 +15,11 @@ void RayTracer::trace() {
         for(int i=0; i<yResolution; i++) {
             yPixel = sItr.pixelHeight*i;
             for(int j=0; j<xResolution; j++) {
-                xPixel = sItr.pixelWidth*j;
                 Ray primaryRay(observer.from, (sItr.scanLine - yPixel) + xPixel); 
                 intersectionTest(&primaryRay, &object);
                 Color pixelColor = shading(primaryRay, object, 0);
                 pixelColor = pixelColor*(255);
+                //printf( "%f %f %f \n",pixelColor.R ,pixelColor.G,pixelColor.B);
                 fprintf(fp, "%d %d %d ",(int)pixelColor.R ,(int)pixelColor.G,(int)pixelColor.B);
             }
         }
@@ -43,6 +43,8 @@ void RayTracer::intersectionTest(Ray *primaryRay, Primitive **object) {
             *object = obj;
         }
     }
+    printf( "DISTANCE: %f\n", primaryRay->distance);
+
 } 
 
 Color RayTracer::shading(Ray ray, Primitive *object, int depth) {
@@ -60,7 +62,6 @@ Color RayTracer::colorContribution(Primitive *object, Ray ray, int depth) {
     Vector N = object->getNormal(P);
     Vector V = ray.direction*(-1);
     color = fullScale(P, N, V, object, depth);
-    //color = grayScale(P,N);
     return color;
 }
 

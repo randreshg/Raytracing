@@ -11,24 +11,22 @@ int main(int argc, char *argv[]) {
     std::string folder("Scenes/");
     std::string extension(".nff");
     std::string filename = folder + argv[1] + extension;
-    // char file[name.size() + 1];
-    // strcpy(file, name.c_str());
-    // std::cout<<"FILE: "<<file<<std::endl;
+    std::cout<<"FILE: "<<filename<<std::endl;
     // Raytracing
     RayTracer RT;
-    if (!readFile(filename, &RT)) 
-        return 0;
-    // RT.trace();
+    if (!readFile(filename, &RT)) return 0;
+    RT.scene.print();
+    RT.trace();
 
     std::cout << "PROCESS FINISHED " <<std::endl;
     return 0;
 } 
 
 
-    // #ifdef USE_MYMATH
-    //     std::cout << "MYMATH\n";
-    //     const double outputValue = mysqrt(100);
-    // #else
-    //     std::cout << "NOT MYMATH\n";
-    //     const double outputValue = 15;
-    // #endif
+// #ifdef USE_MYMATH
+//     std::cout << "MYMATH\n";
+//     const double outputValue = mysqrt(100);
+// #else
+//     std::cout << "NOT MYMATH\n";
+//     const double outputValue = 15;
+// #endif

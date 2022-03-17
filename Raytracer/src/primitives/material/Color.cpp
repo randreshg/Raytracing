@@ -1,6 +1,9 @@
 #include "Color.h"
 
 /*----------------------------------FUNCTIONS----------------------------------*/
+//Print info
+void Color::print() { std::cout<<"["<<R<<" "<<G<<" "<<B<<"]";}
+
 Color Color::operator+ (const Color &c) const
         { return Color((R + c.R), (G + c.G), (B + c.B));}
 
