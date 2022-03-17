@@ -19,9 +19,6 @@
 #include "Polygon.h"
 #include "Sphere.h"
 
-/*-----------------------------------CONSTANTS--------------------------------*/
-#define MAXCHAR 100
-
 /*----------------------------------FUNCTIONS----------------------------------*/
 int readFile(std::string filename, RayTracer *RT);
 void readBackground(std::ifstream &inputFile, Scene *scene);

@@ -78,20 +78,20 @@ Color RayTracer::fullScale(Vector P, Vector N, Vector V, Primitive *object, int 
     float intensity = 1/sqrt(lights.size());
     /*-----------------------Light contribution-------------------------*/
     for(unsigned int i=0; i<lights.size(); i++) {
-        Vector L(lights[i].position,P); L.normalize();
+        Vector L(lights[i].position, P); L.normalize();
         offsetPoint = P + L*(10e-4);
         /*------------------------Shadow ray----------------------------*/
         //Add a small offset to avoid the ray to hit the same sphere
-        Ray shadowRay(offsetPoint,L,SKY);
-        intersectionTest(&shadowRay,&shadowObject);
+        Ray shadowRay(offsetPoint, L, SKY);
+        intersectionTest(&shadowRay, &shadowObject);
         /*-----------------------------Shade----------------------------*/
         if(shadowRay.distance == SKY) {
             /*-------------------Diffuse component----------------------*/
-            diffuse = kd*fmax(0,L.dotPoint(N));
+            diffuse = kd*fmax(0, L.dotPoint(N));
             /*-------------------Specular component---------------------*/
             Vector R = L*(-1) + N*(2*(N.dotPoint(L)));
             R.normalize();
-            specular = ks*pow(fmax(0,R.dotPoint(V)),shine);
+            specular = ks*pow(fmax(0, R.dotPoint(V)), shine);
             /*-------------------Light contribution---------------------*/
             color.R += ((diffuse*objectColor.R) + specular)*(intensity);
             color.G += ((diffuse*objectColor.G) + specular)*(intensity);

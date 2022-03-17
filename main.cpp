@@ -21,12 +21,3 @@ int main(int argc, char *argv[]) {
     std::cout << "PROCESS FINISHED " <<std::endl;
     return 0;
 } 
-
-
-// #ifdef USE_MYMATH
-//     std::cout << "MYMATH\n";
-//     const double outputValue = mysqrt(100);
-// #else
-//     std::cout << "NOT MYMATH\n";
-//     const double outputValue = 15;
-// #endif

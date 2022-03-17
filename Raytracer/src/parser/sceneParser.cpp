@@ -14,7 +14,6 @@ int readFile(std::string filename, RayTracer *RT) {
     Scene scene; Screen screen; Observer observer; Properties p;
     std::string tok;
     // Iterate file
-    
     while (inputFile>>tok) {
         if(tok.compare("b") == 0)
             readBackground(inputFile, &scene);
@@ -70,7 +69,7 @@ void readLight(std::ifstream &inputFile, Scene *scene) {
         color.B = std::stof(tokens[5]);
     }
     else {
-        color.R = 0.5, color.G = 0.5, color.B = 0.5;
+        color.R = 1, color.G = 1, color.B = 1;
     }
     Light l(color, point);
     scene->addLight(l);
