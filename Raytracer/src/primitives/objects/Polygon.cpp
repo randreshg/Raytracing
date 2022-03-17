@@ -38,18 +38,23 @@ void Polygon::rayIntersection(Ray *ray, Primitive **object) {
             e1[0] = vertices[i].dotPoint(bx);       // e1 = v[i]
             e1[1] = vertices[i].dotPoint(by);
         }
-        if(!hit) ray->distance = SKY;
+        if(!hit)
+            ray->distance = SKY;
     }
 }
 
 Vector Polygon::getNormal(Vector P) { return N; }
 
 void Polygon::print() { 
-    std::cout<<"Polygon n["<<nVertices<<"]"<<std::endl;
+    std::cout<<"Polygon [";
+    for(int i=0; i<nVertices; i++)
+        vertices[i].print();
+    std::cout<<"]"<<std::endl;
+
 }
 
 /*--------------------------------CONSTRUCTORS---------------------------------*/
-Polygon::Polygon(){};
+Polygon::Polygon() {};
 Polygon::Polygon(int nVertices, Vector *vert, Properties p) : 
                  nVertices(nVertices), vertices(vert) { this->properties = p;}
 Polygon::Polygon(const Polygon &cln) { *this = cln; }

@@ -7,7 +7,7 @@ void Sphere::rayIntersection(Ray *ray, Primitive **object) {
     a = 1;
     b = 2*(ray->direction).dotPoint(voc);
     c = voc.dotPoint(voc) - r*r;
-    quadraticSolution(a,b,c,&(ray->distance));
+    quadraticSolution(a, b, c, &(ray->distance));
     if(ray->distance != SKY){ 
         ray->setP(); 
         *object = this;

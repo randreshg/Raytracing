@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
     // Raytracing
     RayTracer RT;
     if (!readFile(filename, &RT)) return 0;
-    RT.scene.print();
+    //RT.scene.print();
     RT.trace();
 
     std::cout << "PROCESS FINISHED " <<std::endl;

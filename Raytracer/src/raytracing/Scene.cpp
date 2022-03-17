@@ -8,9 +8,9 @@ void Scene::print() {
     std::cout<<"------------------------------------------------"<<std::endl;
     std::cout<<"SCENE INFO:"<<std::endl;
     std::cout<<"\n-Background color [R G B]: "; background.print(); std::cout<<std::endl;
-    // std::cout<<"\n-Objects info:"<<std::endl;
-    // for(unsigned int i= 0; i< primitives.size(); i++)
-    //     primitives[i]->print();
+    std::cout<<"\n-Objects info:"<<std::endl;
+    for(unsigned int i= 0; i< primitives.size(); i++)
+        primitives[i]->print();
     std::cout<<"\n-Lights sources info: "<<std::endl;
     for(unsigned int i= 0; i< lights.size(); i++)
         lights[i].print();
