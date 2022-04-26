@@ -1,16 +1,15 @@
 #include "Raytracer.h"
 #include "sceneParser.h"
 
-// #ifdef USE_MYMATH
-//     #include "MathFunctions.h"
-// #endif
-// #include "src/dependencies.h"
-
 int main(int argc, char *argv[]) {
     // Read NFF scene
     std::string folder("Scenes/");
     std::string extension(".nff");
-    std::string filename = folder + argv[1] + extension;
+    std::string filename;
+    if(argc > 1)
+        filename = folder + argv[1] + extension;
+    else
+        filename = folder + "demo" + extension;
     std::cout<<"FILE: "<<filename<<std::endl;
     // Raytracing
     RayTracer RT;

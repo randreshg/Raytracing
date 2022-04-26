@@ -38,7 +38,7 @@ int readFile(std::string filename, RayTracer *RT) {
     RT->observer = observer;
     RT->screen = screen;
     RT->scene = scene;
-    RT->ScreenItrInfo(); //Set Screen iterator info
+    RT->setScreenItr(); //Set Screen iterator info
     std::cout<<"FILE READ"<<std::endl;
     return 1;
 

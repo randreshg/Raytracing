@@ -17,6 +17,7 @@ class RayTracer {
     Observer observer;
     Screen screen;
     ScreenItr sItr;
+    Color *image;
 
     /*----------------------------------FUNCTIONS----------------------------------*/
     void trace();
@@ -24,11 +25,12 @@ class RayTracer {
     Color shading(Ray ray, Primitive *object, int depth);
     Color colorContribution(Primitive *object, Ray ray, int depth);
     Color fullScale(Vector P, Vector N, Vector V, Primitive *object, int depth);
-    void ScreenItrInfo();
+    void setScreenItr();
+    void imageToPPM();
 
     /*--------------------------------CONSTRUCTORS---------------------------------*/
     RayTracer();
     RayTracer(const RayTracer &s);
     RayTracer(Scene scene, Observer observer, Screen screen);
-    ~RayTracer() = default;
+    ~RayTracer() { delete image; };
 };

@@ -1,42 +1,72 @@
 #include "Raytracer.h"
 
+#ifdef OPENMP
+    #include <omp.h>
+#endif
+
 /*----------------------------------FUNCTIONS----------------------------------*/
 void RayTracer::trace() {
     Primitive *object;
     int xResolution = screen.width, 
         yResolution = screen.height;
+    int pixelCounter = 0;
+    image = new Color[xResolution*yResolution];
+
+    //Time taken by the program
+    double time;
+    #ifdef OPENMP
+        time = omp_get_wtime();
+    #else
+        double clockCycles = clock();
+    #endif
+
+    //Screen iterator
     Vector xPixel, yPixel;
+    #pragma omp parallel for private(xPixel, yPixel, object, pixelCounter)
+    for(int i=0; i<yResolution; i++) {
+        yPixel = sItr.pixelHeight*i;
+        pixelCounter = i*xResolution;
+        for(int j=0; j<xResolution; j++) {
+            xPixel = sItr.pixelWidth*j; 
+            Ray primaryRay(observer.from, (sItr.scanLine - yPixel) + xPixel); 
+            intersectionTest(&primaryRay, &object);
+            //Store color in array
+            image[pixelCounter + j] = shading(primaryRay, object, 0);
+            image[pixelCounter + j] = image[pixelCounter + j]*(255);
+        }
+    }
+    //Time taken by the program
+    #ifdef OPENMP
+        time = omp_get_wtime() - time;
+    #else
+        clockCycles = clock() - clockCycles;
+        time = ((double)clockCycles)/CLOCKS_PER_SEC;
+    #endif
+    printf("The process took %f seconds to execute \n", time);
+    imageToPPM();
+} 
+
+void RayTracer::imageToPPM() {
     //PPM file
     FILE *fp = fopen("Output/file.ppm", "w+");
     if (fp!=NULL) {
-        fprintf(fp, "P3\n%d %d\n255\n", xResolution, yResolution);  
-        //Calculate the time taken by the program
-        clock_t t = clock();
-        for(int i=0; i<yResolution; i++) {
-            yPixel = sItr.pixelHeight*i;
-            for(int j=0; j<xResolution; j++) {
-                xPixel =  sItr.pixelWidth*j; 
-                Ray primaryRay(observer.from, (sItr.scanLine - yPixel) + xPixel); 
-                intersectionTest(&primaryRay, &object);
-                Color pixelColor = shading(primaryRay, object, 0);
-                pixelColor = pixelColor*(255);
-                fprintf(fp, "%d %d %d ",(int)pixelColor.R ,(int)pixelColor.G,(int)pixelColor.B);
-            }
-        }
-        t = clock() - t;
-        double timeTaken = ((double)t)/CLOCKS_PER_SEC;
-        printf("The process took %f seconds to execute \n", timeTaken);
+        fprintf(fp, "P3\n%d %d\n255\n", (int)screen.width, (int)screen.height);
+        //Write pixel information
+        auto pixels = screen.width * screen.height;
+        for(auto i=0; i<pixels; i++)
+            fprintf(fp, "%d %d %d ",(int)image[i].R, (int)image[i].G, (int)image[i].B);
         fclose (fp);
     }
     else {
         printf("'Output' folder doesn't exist\n");
     }
-} 
+}
 
 void RayTracer::intersectionTest(Ray *primaryRay, Primitive **object) {
     Primitive *obj;
     Ray ray = *primaryRay;
-    for(unsigned int i=0; i<scene.primitives.size(); i++) {
+    unsigned int primitivesSize = scene.primitives.size();
+    for(unsigned int i=0; i<primitivesSize; i++) {
         (scene.primitives[i])->rayIntersection(&ray, &obj);
         if((ray.distance) < (primaryRay->distance)) {
             *primaryRay = ray;
@@ -77,7 +107,8 @@ Color RayTracer::fullScale(Vector P, Vector N, Vector V, Primitive *object, int 
     float diffuse, specular;
     float intensity = 1/sqrt(lights.size());
     /*-----------------------Light contribution-------------------------*/
-    for(unsigned int i=0; i<lights.size(); i++) {
+    unsigned int lightsSize = lights.size();
+    for(unsigned int i=0; i<lightsSize; i++) {
         Vector L(lights[i].position, P); L.normalize();
         offsetPoint = P + L*(10e-4);
         /*------------------------Shadow ray----------------------------*/
@@ -113,7 +144,7 @@ Color RayTracer::fullScale(Vector P, Vector N, Vector V, Primitive *object, int 
     return color;
 }
 
-void RayTracer::ScreenItrInfo() {
+void RayTracer::setScreenItr() {
     Vector w(observer.lookAt, observer.from); w.normalize();
     Vector u = w.cross(observer.up); u.normalize();
     Vector v = u.cross(w);

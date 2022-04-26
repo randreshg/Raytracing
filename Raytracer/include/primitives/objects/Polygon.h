@@ -26,5 +26,5 @@ class Polygon: public Primitive {
     Polygon();
     Polygon(int nVertices, Vector *vert, Properties p);
     Polygon(const Polygon &pln);
-    ~Polygon() = default;
+    ~Polygon() { delete vertices; };
 };

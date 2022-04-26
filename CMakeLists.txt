@@ -23,6 +23,7 @@ set( CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
 #OpenMP
 find_package(OpenMP REQUIRED)
 if(OpenMP_FOUND)
+    ADD_DEFINITIONS( -DOPENMP=1 )
     set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}" )
 else()
     message_red(STATUS "OpenMP not found")
@@ -39,8 +40,6 @@ add_executable(rt main.cpp)
 # Specify that this library depends upon rtl
 message_green("=> Linking libraries")
 target_link_libraries(rt rtl m)
-
-
 
 # Finished
 message_green( "=== Process done ===")
