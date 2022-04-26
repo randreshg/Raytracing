@@ -8,7 +8,7 @@ Steps to install:
 2. Move into this directory
    $ cd build
 3. Use Cmake to configure the build aiming at the top level CMakelist.txt
-   $ cmake ..
+   $ cmake -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang ..
 4. Build
    $ make
 5. To install for other projects to use
