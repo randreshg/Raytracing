@@ -24,4 +24,5 @@ class Ray {
     Ray(const Ray &ray);
     Ray(Vector o, Vector d, float distance);
     Ray(Vector o, Vector d);
+    ~Ray() = default;
 };

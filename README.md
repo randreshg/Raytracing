@@ -11,5 +11,7 @@ Steps to install:
    $ cmake -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang ..
 4. Build
    $ make
-5. To install for other projects to use
-   $ make install
+
+Steps to execute:
+=================
+   $ ./build/rt SCENE

@@ -58,4 +58,5 @@ class Vector {
     Vector(float x, float y, float z) : x(x), y(y), z(z) {}
     Vector(const Vector &v) { *this = v;}
     Vector(Vector a, Vector b) { *this = a - b;}
+    ~Vector() = default;
 };

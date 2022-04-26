@@ -14,8 +14,8 @@ class RayTracer {
     public:
     /*----------------------------------ATTRIBUTES---------------------------------*/
     Scene scene;
-    Screen screen;
     Observer observer;
+    Screen screen;
     ScreenItr sItr;
 
     /*----------------------------------FUNCTIONS----------------------------------*/
@@ -30,4 +30,5 @@ class RayTracer {
     RayTracer();
     RayTracer(const RayTracer &s);
     RayTracer(Scene scene, Observer observer, Screen screen);
+    ~RayTracer() = default;
 };

@@ -23,4 +23,5 @@ class Scene {
     Scene();
     Scene(Color bg, Array<Primitive*> primitives, Array<Light> lights);
     Scene(const Scene &s);
+    ~Scene() = default;
 };

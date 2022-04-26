@@ -6,20 +6,27 @@ project(Raytracing VERSION 1.0)
 message_green( "=== Project Raytracing ===")
 
 # specify the C++ standard
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set( CMAKE_CXX_STANDARD 17)
+set( CMAKE_CXX_STANDARD_REQUIRED ON)
+option(DEBUG "DEBUG" ON)
+if(DEBUG)
+    message("DEBUG VERSION!!!")
+    set( CMAKE_BUILD_TYPE "DEBUG")
+else()
+    message("Release Version")
+    set( CMAKE_BUILD_TYPE "RELEASE")
+endif()
+## Compiler flags
+set( CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-Wall -Wextra -Wunused-macros" )
+set( CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
 
 #OpenMP
 find_package(OpenMP REQUIRED)
 if(OpenMP_FOUND)
-    # ... <- the steps below will be placed here
-    # list(APPEND CXX_BASIC_FLAGS "-g3" "-O1")
+    set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}" )
 else()
     message_red(STATUS "OpenMP not found")
 endif()
-
-# Options 
-#option(USE_MYMATH "Use tutorial provided math implementation" OFF)
 
 # add the Raytracer library
 message_green("=> Starting Raytracing environment")
@@ -32,21 +39,8 @@ add_executable(rt main.cpp)
 # Specify that this library depends upon rtl
 message_green("=> Linking libraries")
 target_link_libraries(rt rtl m)
-# add the binary tree to the search path for include files
-# target_include_directories(rt PUBLIC
-#                           raytracer
-#                           "${PROJECT_BINARY_DIR}"
-#                           "${EXTRA_INCLUDES}"
-#                           )
 
-# add the MathFunctions library
-# if(USE_MYMATH)
-#   add_definitions(-DUSE_MYMATH)
-#   add_subdirectory(MathFunctions)
-#   list(APPEND EXTRA_LIBS MathFunctions)
-#   list(APPEND EXTRA_INCLUDES "${PROJECT_SOURCE_DIR}/MathFunctions")
-#   message(STATUS "MathFunctions added")
-# endif()
+
 
 # Finished
 message_green( "=== Process done ===")

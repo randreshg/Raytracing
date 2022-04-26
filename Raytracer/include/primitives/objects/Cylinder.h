@@ -28,4 +28,5 @@ class Cylinder: public Primitive {
     Cylinder();
     Cylinder(Vector ct, Vector cb, float r, Properties p);
     Cylinder(const Cylinder &cln);
+    ~Cylinder() = default;
 };

@@ -22,4 +22,5 @@ class Color {
     Color();
     Color(float R, float G, float B);
     Color(const Color &color);
+    ~Color() = default;
 };

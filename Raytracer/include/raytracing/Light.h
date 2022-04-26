@@ -19,4 +19,5 @@ class Light {
     Light();
     Light(const Light &light);
     Light(Color c, Vector p);
+    ~Light() = default;
 };

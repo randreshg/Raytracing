@@ -24,5 +24,6 @@ class Plane: public Primitive {
     Plane();
     Plane(Vector c, Vector v, Properties p);
     Plane(Vector c, Vector v);
-    Plane(const Plane &cln);
+    Plane(const Plane &pln);
+    ~Plane() = default;
 };

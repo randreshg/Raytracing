@@ -10,4 +10,5 @@ class Screen {
     Screen();
     Screen(float w, float h);
     Screen(const Screen &screen);
+    ~Screen() = default;
 };

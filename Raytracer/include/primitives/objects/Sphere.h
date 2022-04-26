@@ -24,4 +24,5 @@ class Sphere: public Primitive {
     Sphere();
     Sphere(Vector c, float r, Properties p);
     Sphere(const Sphere &sph);
+    ~Sphere() = default;
 };

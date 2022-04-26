@@ -30,5 +30,5 @@ class Primitive {
     virtual Vector getNormal(Vector P)=0;
     /*--------------------------------CONSTRUCTORS---------------------------------*/
     Primitive() {};
-    ~Primitive() {};
+    virtual ~Primitive() = default;
 };

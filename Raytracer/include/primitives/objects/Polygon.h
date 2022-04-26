@@ -25,5 +25,6 @@ class Polygon: public Primitive {
     /*--------------------------------CONSTRUCTORS---------------------------------*/
     Polygon();
     Polygon(int nVertices, Vector *vert, Properties p);
-    Polygon(const Polygon &cln);
+    Polygon(const Polygon &pln);
+    ~Polygon() = default;
 };
