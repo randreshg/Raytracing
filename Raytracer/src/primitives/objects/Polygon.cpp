@@ -4,8 +4,6 @@
 void Polygon::rayIntersection(Ray *ray, Primitive **object) {
     //Computes polygon plane
     Vector u = vertices[1] - vertices[0];
-    Vector v = vertices[2] - vertices[0];
-    N = u.cross(v); N.normalize();
     Plane *p1 = new Plane(vertices[0], N); 
     p1->rayIntersection(ray, object);
     delete p1;
@@ -25,7 +23,7 @@ void Polygon::rayIntersection(Ray *ray, Primitive **object) {
         e1[0] = vertices[0].dotPoint(bx);
         e1[1] = vertices[0].dotPoint(by);
         
-        int y0, y1,hit = 0;
+        int y0, y1, hit = 0;
         y0 = (e0[1]>=pt[1]);
         for(int i = 1; i< (nVertices+1); i++) {
             y1 = (e1[1] >= pt[1]);
@@ -43,6 +41,7 @@ void Polygon::rayIntersection(Ray *ray, Primitive **object) {
     }
 }
 
+
 Vector Polygon::getNormal(Vector P) { return N; }
 
 void Polygon::print() { 
@@ -56,5 +55,10 @@ void Polygon::print() {
 /*--------------------------------CONSTRUCTORS---------------------------------*/
 Polygon::Polygon() {};
 Polygon::Polygon(int nVertices, Vector *vert, Properties p) : 
-                 nVertices(nVertices), vertices(vert) { this->properties = p;}
+                 nVertices(nVertices), vertices(vert) { 
+    this->properties = p;
+    Vector u = vertices[1] - vertices[0];
+    Vector v = vertices[2] - vertices[0];
+    N = u.cross(v); N.normalize();
+}
 Polygon::Polygon(const Polygon &cln) { *this = cln; }

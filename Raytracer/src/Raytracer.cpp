@@ -15,8 +15,10 @@ void RayTracer::trace() {
     //Time taken by the program
     double time;
     #ifdef OPENMP
+        printf("-OpenMP Version\n");
         time = omp_get_wtime();
     #else
+        printf("-Sequential Version\n");
         double clockCycles = clock();
     #endif
 
@@ -24,15 +26,15 @@ void RayTracer::trace() {
     Vector xPixel, yPixel;
     #pragma omp parallel for private(xPixel, yPixel, object, pixelCounter)
     for(int i=0; i<yResolution; i++) {
-        yPixel = sItr.pixelHeight*i;
+        yPixel = (sItr.pixelHeight*i);
         pixelCounter = i*xResolution;
+        //printf("%d - %d - %d\n", i, pixelCounter, omp_get_thread_num());
         for(int j=0; j<xResolution; j++) {
-            xPixel = sItr.pixelWidth*j; 
-            Ray primaryRay(observer.from, (sItr.scanLine - yPixel) + xPixel); 
+            xPixel = (sItr.pixelWidth*j); 
+            Ray primaryRay(observer.from, (sItr.scanLine - (sItr.pixelHeight*i)) + (sItr.pixelWidth*j)); 
             intersectionTest(&primaryRay, &object);
             //Store color in array
-            image[pixelCounter + j] = shading(primaryRay, object, 0);
-            image[pixelCounter + j] = image[pixelCounter + j]*(255);
+            image[pixelCounter + j] = shading(primaryRay, object, 0)*(255);
         }
     }
     //Time taken by the program
@@ -65,7 +67,7 @@ void RayTracer::imageToPPM() {
 void RayTracer::intersectionTest(Ray *primaryRay, Primitive **object) {
     Primitive *obj;
     Ray ray = *primaryRay;
-    unsigned int primitivesSize = scene.primitives.size();
+    static unsigned int primitivesSize = scene.primitives.size();
     for(unsigned int i=0; i<primitivesSize; i++) {
         (scene.primitives[i])->rayIntersection(&ray, &obj);
         if((ray.distance) < (primaryRay->distance)) {
@@ -80,17 +82,14 @@ Color RayTracer::shading(Ray ray, Primitive *object, int depth) {
     if(ray.distance == SKY)
         return b;
     else
-        return colorContribution(object, ray, depth);
+        return colorContribution(ray, object, depth);
 }
 
-Color RayTracer::colorContribution(Primitive *object, Ray ray, int depth) {
-    //Auxiliar variables
-    Color color;
+Color RayTracer::colorContribution(Ray ray, Primitive *object, int depth) {
     Vector P = ray.P;
     Vector N = object->getNormal(P);
     Vector V = ray.direction*(-1);
-    color = fullScale(P, N, V, object, depth);
-    return color;
+    return fullScale(P, N, V, object, depth);
 }
 
 Color RayTracer::fullScale(Vector P, Vector N, Vector V, Primitive *object, int depth) {
@@ -129,13 +128,13 @@ Color RayTracer::fullScale(Vector P, Vector N, Vector V, Primitive *object, int 
             color.B += ((diffuse*objectColor.B) + specular)*(intensity);                                      
         }
     }
-    if(depth < 5 && ks>0) {
+    if(depth<5 && ks>0) {
         Primitive *hitObject;
         Vector R = V*(-1) + N*(2*(N.dotPoint(V)));
         R.normalize();
         offsetPoint = P + R*(10e-4);
-        Ray reflectedRay(offsetPoint,R);
-        intersectionTest(&reflectedRay,&hitObject);
+        Ray reflectedRay(offsetPoint, R);
+        intersectionTest(&reflectedRay, &hitObject);
         Color reflectedColor = shading(reflectedRay, hitObject, depth + 1);
         color.R += (reflectedColor.R)*(ks);
         color.G += (reflectedColor.G)*(ks);

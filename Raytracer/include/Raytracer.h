@@ -23,7 +23,7 @@ class RayTracer {
     void trace();
     void intersectionTest(Ray *primaryRay, Primitive **object);
     Color shading(Ray ray, Primitive *object, int depth);
-    Color colorContribution(Primitive *object, Ray ray, int depth);
+    Color colorContribution(Ray ray, Primitive *object, int depth);
     Color fullScale(Vector P, Vector N, Vector V, Primitive *object, int depth);
     void setScreenItr();
     void imageToPPM();

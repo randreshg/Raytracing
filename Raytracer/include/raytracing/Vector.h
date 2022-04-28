@@ -12,10 +12,10 @@ class Vector {
 
     /*----------------------------------FUNCTIONS----------------------------------*/
     //Print info
-    void print(){ std::cout<<"["<<x<<","<<y<<","<<z<<"]";}
+    void print() { std::cout<<"["<<x<<","<<y<<","<<z<<"]";}
 
     //Vector lenght
-    float lenght(){ return sqrt(x*x + y*y + z*z); }
+    float lenght() { return sqrt(x*x + y*y + z*z); }
     
     //Normalize info
     void normalize() { *this = *this/lenght(); }
