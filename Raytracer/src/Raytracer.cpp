@@ -1,49 +1,47 @@
 #include "Raytracer.h"
 
-#ifdef OPENMP
-    #include <omp.h>
+#include <omp.h>
+#ifndef NT
+#define NT 14
 #endif
-
 /*----------------------------------FUNCTIONS----------------------------------*/
 void RayTracer::trace() {
     Primitive *object;
     int xResolution = screen.width, 
         yResolution = screen.height;
-    int pixelCounter = 0;
     image = new Color[xResolution*yResolution];
 
     //Time taken by the program
-    double time;
-    #ifdef OPENMP
-        printf("-OpenMP Version\n");
-        time = omp_get_wtime();
-    #else
-        printf("-Sequential Version\n");
-        double clockCycles = clock();
-    #endif
-
+    double time = omp_get_wtime();
+#ifdef OPENMP
+    printf("-OpenMP Version\n");
+    //#pragma omp parallel for private(xPixel, yPixel, object, pixelCounter)
+    #pragma omp parallel for collapse(2) private(object) num_threads(NT)
+    for(int i=0; i<yResolution; i++) {
+        for(int j=0; j<xResolution; j++) {
+            Ray primaryRay(observer.from, (sItr.scanLine - (sItr.pixelHeight*i)) + (sItr.pixelWidth*j)); 
+            intersectionTest(&primaryRay, &object);
+            image[i*xResolution + j] = shading(primaryRay, object, 0)*(255);
+        }
+    }
+#else
+    printf("-Sequential Version\n");
+    int pixelCounter = 0;
     //Screen iterator
     Vector xPixel, yPixel;
-    #pragma omp parallel for private(xPixel, yPixel, object, pixelCounter)
     for(int i=0; i<yResolution; i++) {
         yPixel = (sItr.pixelHeight*i);
         pixelCounter = i*xResolution;
-        //printf("%d - %d - %d\n", i, pixelCounter, omp_get_thread_num());
         for(int j=0; j<xResolution; j++) {
-            xPixel = (sItr.pixelWidth*j); 
-            Ray primaryRay(observer.from, (sItr.scanLine - (sItr.pixelHeight*i)) + (sItr.pixelWidth*j)); 
+            xPixel = sItr.pixelWidth*j;
+            Ray primaryRay(observer.from, (sItr.scanLine - yPixel) + xPixel); 
             intersectionTest(&primaryRay, &object);
-            //Store color in array
             image[pixelCounter + j] = shading(primaryRay, object, 0)*(255);
         }
     }
+#endif
     //Time taken by the program
-    #ifdef OPENMP
-        time = omp_get_wtime() - time;
-    #else
-        clockCycles = clock() - clockCycles;
-        time = ((double)clockCycles)/CLOCKS_PER_SEC;
-    #endif
+    time = omp_get_wtime() - time;
     printf("The process took %f seconds to execute \n", time);
     imageToPPM();
 } 
@@ -100,13 +98,13 @@ Color RayTracer::fullScale(Vector P, Vector N, Vector V, Primitive *object, int 
     float ks = (object->properties).ks;
     //Aux variables
     Color color;
-    Array<Light> lights = scene.lights;
+    static Array<Light> lights = scene.lights;
+    static unsigned int lightsSize = lights.size();
     Primitive *shadowObject;
     Vector offsetPoint;
     float diffuse, specular;
-    float intensity = 1/sqrt(lights.size());
+    static float intensity = 1/sqrt(lightsSize);
     /*-----------------------Light contribution-------------------------*/
-    unsigned int lightsSize = lights.size();
     for(unsigned int i=0; i<lightsSize; i++) {
         Vector L(lights[i].position, P); L.normalize();
         offsetPoint = P + L*(10e-4);
